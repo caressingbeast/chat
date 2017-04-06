@@ -7,6 +7,7 @@ module.exports = function (io) {
   io.sockets.on('connection', function (socket) {
     var username;
 
+    // populate initial data for new user
     socket.emit('loadData', {
       messages: messages,
       users: users,
@@ -16,7 +17,7 @@ module.exports = function (io) {
       // do nothing, keep socket alive
     });
 
-    // receive and broadcast new username
+    // receive and broadcast a new user
     socket.on('saveUsername', function (clientUsername) {
       var message = {
         isServer: true,
@@ -24,8 +25,8 @@ module.exports = function (io) {
       };
 
       messages.push(message);
-      username = clientUsername;
       users.push(clientUsername);
+      username = clientUsername;
 
       io.sockets.emit('pushUser', {
         message: message,
@@ -33,7 +34,7 @@ module.exports = function (io) {
       });
     });
 
-    // receive and broadcast new message
+    // receive and broadcast a new message
     socket.on('sendMessage', function (message) {
       messages.push(message);
       io.sockets.emit('pushMessage', message);
@@ -51,7 +52,6 @@ module.exports = function (io) {
       };
 
       messages.push(message);
-      username = null;
       users.splice(index, 1);
 
       io.sockets.emit('pullUser', {

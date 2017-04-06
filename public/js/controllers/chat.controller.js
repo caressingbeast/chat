@@ -31,6 +31,10 @@
 
       vm.username = vm.formData.username;
       vm.formData.username = '';
+
+      $timeout(function () {
+        $('input.send-message').focus();
+      }, 0, false);
     };
 
     vm.sendMessage = function () {
@@ -59,6 +63,11 @@
 
     SocketService.on('pushMessage', function (message) {
       vm.messages.push(message);
+
+      $timeout(function () {
+        var $list = $('.messages-container');
+        $list.scrollTop($list[0].scrollHeight);
+      }, 0, false);
     });
 
     SocketService.on('pushUser', function (data) {
