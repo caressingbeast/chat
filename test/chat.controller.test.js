@@ -2,11 +2,8 @@ describe('ChatCtrl', function () {
 
   beforeEach(module('chat'));
 
-  var refreshEvent = 'refreshEvent';
-
   // placeholders
   var $controller;
-  var $http;
   var $scope;
 
   // mock SocketService
@@ -21,8 +18,7 @@ describe('ChatCtrl', function () {
     }
   };
 
-  beforeEach(inject(function(_$controller_, $httpBackend, $rootScope) {
-    $http = $httpBackend;
+  beforeEach(inject(function(_$controller_, $rootScope) {
     $scope = $rootScope.$new();
 
     $controller = _$controller_('ChatCtrl', {
@@ -111,7 +107,12 @@ describe('ChatCtrl', function () {
       $controller.username = message.user;
 
       $controller.sendMessage();
-      expect(SocketService.emit).toHaveBeenCalledWith('sendMessage', message);
+
+      var emit = SocketService.emit.calls.mostRecent();
+      var emitMessage = emit.args[1];
+      expect(emit.args[0]).toEqual('sendMessage');
+      expect(emitMessage.text).toEqual(message.text);
+      expect(emitMessage.user).toEqual(message.user);
     });
   });
 
