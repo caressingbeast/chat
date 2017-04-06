@@ -12,6 +12,31 @@
     vm.username = '';
     vm.users = [];
 
+    var baseTitle = 'YakYak';
+    var focused = true;
+    var missedMessages = 0;
+
+    function updatePageTitle (useBase) {
+      var title = useBase ? baseTitle : 'YakYak (' + missedMessages + ' new)';
+
+      window.document.tite = title;
+
+      setTimeout(function () {
+        document.title = title;
+      }, 100);
+    }
+
+    // keep track of window focus status
+    $(window).on('focus', function () {
+      focused = true;
+      missedMessages = 0;
+      updatePageTitle(true);
+    });
+
+    $(window).on('blur', function () {
+      focused = false;
+    });
+
     vm.saveUsername = function () {
       if (!vm.formData.username) {
         return false;
@@ -73,6 +98,11 @@
         var $list = $('.messages-container');
         $list.scrollTop($list[0].scrollHeight);
       }, 0, false);
+
+      if (!focused) {
+        missedMessages++;
+        updatePageTitle();
+      }
     });
 
     SocketService.on('pullUser', function (data) {

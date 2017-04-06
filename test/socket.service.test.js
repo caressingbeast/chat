@@ -15,7 +15,7 @@ describe('SocketService', function () {
         }
       }
     }
-  }
+  };
 
   beforeEach(module('chat'));
 
