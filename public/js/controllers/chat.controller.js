@@ -61,6 +61,11 @@
       vm.users = data.users;
     });
 
+    SocketService.on('pushUser', function (data) {
+      vm.messages.push(data.message);
+      vm.users.push(data.username);
+    });
+
     SocketService.on('pushMessage', function (message) {
       vm.messages.push(message);
 
@@ -68,11 +73,6 @@
         var $list = $('.messages-container');
         $list.scrollTop($list[0].scrollHeight);
       }, 0, false);
-    });
-
-    SocketService.on('pushUser', function (data) {
-      vm.messages.push(data.message);
-      vm.users.push(data.username);
     });
 
     SocketService.on('pullUser', function (data) {

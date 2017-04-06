@@ -8,12 +8,15 @@ describe('ChatCtrl', function () {
 
   // mocks
   var SocketService = {
-    on: function () {},
-    emit: function () {}
+    on: function (event, callback) {},
+    emit: function (event, data, callback) {}
   };
 
   beforeEach(inject(function(_$controller_, $rootScope) {
     $scope = $rootScope.$new();
+
+    spyOn(SocketService, 'on').and.callThrough();
+    spyOn(SocketService, 'emit').and.callThrough();
 
     $controller = _$controller_('ChatCtrl', {
       $scope: $scope,
@@ -46,16 +49,12 @@ describe('ChatCtrl', function () {
   describe('.saveUsername()', function () {
 
     it('should do nothing if empty username', function () {
-      spyOn(SocketService, 'emit');
-
       $controller.saveUsername();
       expect(SocketService.emit).not.toHaveBeenCalled();
       expect($controller.username).toEqual('');
     });
 
     it('should do nothing if duplicate username', function () {
-      spyOn(SocketService, 'emit');
-
       $controller.users = ['duplicate'];
       $controller.formData.username = 'duplicate';
 
@@ -67,14 +66,12 @@ describe('ChatCtrl', function () {
     it('should save username and call SocketService.emit if valid username', function () {
       var username = 'username';
 
-      spyOn(SocketService, 'emit');
-
       $controller.formData.username = username;
 
       $controller.saveUsername();
       expect(SocketService.emit).toHaveBeenCalledWith('saveUsername', username);
 
-      // focuses on messages input
+      // focuses on message field
       setTimeout(function () {
         expect($('input.send-message').is(':focus')).toBeTruthy();
       }, 100);
@@ -84,8 +81,6 @@ describe('ChatCtrl', function () {
   describe('.sendMessage()', function () {
 
     it('should do nothing if empty message', function () {
-      spyOn(SocketService, 'emit');
-
       $controller.sendMessage();
       expect(SocketService.emit).not.toHaveBeenCalled();
     });
@@ -96,8 +91,6 @@ describe('ChatCtrl', function () {
         user: 'username',
         created_at: new Date()
       };
-
-      spyOn(SocketService, 'emit');
 
       $controller.formData.message = message.text;
       $controller.username = message.user;
