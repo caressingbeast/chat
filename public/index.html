@@ -2,10 +2,37 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Chat</title>
+    <title>YakYak</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/chat.css">
+    <script src="js/lib/socket.io.min.js"></script>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services/socket.service.js"></script>
+    <script src="js/controllers/chat.controller.js"></script>
   </head>
-  <body>
-    <h1>Chat</h1>
+  <body ng-app="chat" ng-controller="ChatCtrl as chat">
+    <div class="container">
+      <h1>YakYak</h1>
+      <div class="users-container" ng-if="chat.users.length">
+        <span ng-repeat="user in chat.users">{{ user }}</span>
+      </div>
+      <div class="messages-container" ng-if="chat.messages.length">
+        <div ng-repeat="msg in chat.messages" class="message" ng-class="msg.isServer ? 'server-message' : ''">
+          <span ng-if="!msg.isServer">
+            <strong>{{ msg.user }}</strong>
+            <small>{{ msg.created_at | date: 'h:mma M/dd/yy' }}</small>
+          </span>
+          <p>{{ msg.text }}</p>
+        </div>
+      </div>
+      <form ng-submit="chat.sendMessage()" ng-if="chat.username">
+        <input class="form-input message" placeholder="Enter your message here..." ng-model="chat.formData.message" />
+      </form>
+      <form ng-submit="chat.saveUsername()" ng-if="!chat.username">
+        <input class="form-input message" placeholder="Enter your username here..." ng-model="chat.formData.username" />
+      </form>
+    </div>
+    <p class="copyright">made by <a href="https://github.com/caressingbeast/chat">caressingbeast</a></p>
   </body>
 </html>

@@ -1,0 +1,160 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  color: #4d5659;
+  font-family: "Helvetica Neue", Helvetia, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+*:focus {
+  outline: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 30px 0;
+  color: #000;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+p {
+  margin: 0 0 30px 0;
+}
+
+a {
+  cursor: pointer;
+  color: #00b0e9;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  outline: 0;
+}
+
+.form-input {
+  border: 1px solid #e6eaed;
+  border-radius: 3px;
+  display: inline-block;
+  padding: 10px;
+}
+
+.button, .button:hover {
+  color: #fff;
+}
+
+.button {
+  background: #00b0e9;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 11px 15px;
+  text-align: center;
+}
+
+.container {
+  border: 1px solid #ddd;
+  margin: 50px auto;
+  max-width: 800px;
+  padding: 30px;
+}
+
+input.message {
+  width: 100%;
+}
+
+.users-container {
+  border: 1px solid #e6eaed;
+  border-radius: 3px;
+  margin: 0 0 20px 0;
+  overflow: hidden;
+  padding: 6px 6px 0 6px;
+}
+
+.users-container span {
+  background: #e6eaed;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  margin: 0 6px 6px 0;
+  padding: 3px 6px;
+  font-size: 12px;
+}
+
+.messages-container {
+  border: 1px solid #e6eaed;
+  border-radius: 3px;
+  margin: 0 0 20px 0;
+  overflow: auto;
+  height: 500px;
+}
+
+.messages-container div {
+  border-bottom: 1px solid #e6eaed;
+  padding: 10px;
+}
+
+.messages-container span {
+  display: block;
+  line-height: 1;
+  overflow: hidden;
+  font-size: 90%;
+}
+
+.messages-container small {
+  display: inline-block;
+  float: right;
+}
+
+.messages-container p {
+  margin: 10px 0 0 0;
+  color: #000;
+
+}
+
+.messages-container .server-message {
+  background: #f3f3f3;
+  padding: 5px;
+  font-size: 13px;
+  font-style: italic;
+  text-align: center;
+}
+
+.messages-container .server-message p {
+  margin: 0;
+  color: inherit;
+}
+
+code {
+  background: #f9f2f4;
+  border-radius: 3px;
+  padding: 2px 4px;
+  color: #c7254e;
+  font-size: 90%;
+}
+
+.help ul {
+  font-size: 13px;
+}
+
+.copyright {
+  color: #bbb;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
